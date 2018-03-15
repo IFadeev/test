@@ -9,14 +9,14 @@ var gulp = require('gulp'),
 //конфигурация для browserSync
 var config = {
 	server: {
-		baseDir: 'app'
+		baseDir: 'dist'
 	}
 }
 //путь файлов
 var path = {
     src: {
         html: 'app/*.html',
-        sass: 'app/sass/**/*.sass',
+        sass: 'app/sass/main.scss',
         js: 'app/**/*.js',
         img: 'app/img/**/*.*',
         fonts: 'app/fonts/**/*.*'
@@ -50,3 +50,7 @@ gulp.task('watch', ['browser-sync', 'sass'], function() {
 	gulp.watch(path.src.html, browserSync.reload);
 	gulp.watch(path.src.js, browserSync.reload);
 });
+
+
+
+
