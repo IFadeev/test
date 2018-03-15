@@ -1,9 +1,9 @@
 //подключение модулей
-var gulp = require('gulp'),
-	sass = require('gulp-sass'),
-	concat = require('gulp-concat'),
-	rename = require('gulp-rename'),
-	cssnano = require('gulp-cssnano'),
+var gulp 		= require('gulp'),
+	sass 		= require('gulp-sass'),
+	concat 		= require('gulp-concat'),
+	rename 		= require('gulp-rename'),
+	cssnano 	= require('gulp-cssnano'),
 	browserSync = require('browser-sync');
 
 //конфигурация для browserSync
@@ -14,7 +14,7 @@ var config = {
 }
 //путь файлов
 var path = {
-    src: {
+    src: {		
         html: 'app/*.html',
         sass: 'app/sass/main.scss',
         js: 'app/**/*.js',
