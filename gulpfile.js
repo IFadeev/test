@@ -2,6 +2,7 @@
 var gulp 		= require('gulp'),
 	sass 		= require('gulp-sass'),
 	concat 		= require('gulp-concat'),
+	rigger 		= require('gulp-rigger'),
 	rename 		= require('gulp-rename'),
 	cssnano 	= require('gulp-cssnano'),
 	browserSync = require('browser-sync');
@@ -29,6 +30,15 @@ var path = {
         fonts: 'dist/fonts/'
     }};
 
+
+//таск сб
+gulp.task('html-rigger', function () {
+	return gulp.src(path.src.html)
+	.pipe(rigger())
+    .pipe(gulp.dest(path.build.html))
+    .pipe(browserSync.reload({stream: true}));
+});
+
 //таск преобразования препроцессора sass и минимизация файла
 gulp.task('sass', function() {
 	return gulp.src(path.src.sass)
@@ -45,12 +55,8 @@ gulp.task('browser-sync', function() {
 });
 
 //таск мониторинга изменений 
-gulp.task('watch', ['browser-sync', 'sass'], function() {
+gulp.task('watch', ['html-rigger', 'browser-sync', 'sass'], function() {
 	gulp.watch(path.src.sass, ['sass']);
 	gulp.watch(path.src.html, browserSync.reload);
 	gulp.watch(path.src.js, browserSync.reload);
 });
-
-
-
-
