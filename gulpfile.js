@@ -1,11 +1,17 @@
 //подключение модулей
 var gulp 		= require('gulp'),
+	del			= require('del'),
 	sass 		= require('gulp-sass'),
+	cache		= require('gulp-cache'),
 	concat 		= require('gulp-concat'),
 	rigger 		= require('gulp-rigger'),
 	rename 		= require('gulp-rename'),
+	uglify 		= require('gulp-uglify'),
 	cssnano 	= require('gulp-cssnano'),
-	browserSync = require('browser-sync');
+	browserSync = require('browser-sync'),
+	imagemin	= require('gulp-imagemin'),
+	autopref	= require('gulp-autoprefixer'),
+	pngquant	= require('imagemin-pngquant');
 
 //конфигурация для browserSync
 var config = {
@@ -43,11 +49,52 @@ gulp.task('html-rigger', function () {
 gulp.task('sass', function() {
 	return gulp.src(path.src.sass)
 	.pipe(sass())
-	.pipe(cssnano())
+	.pipe(autopref(['last 15 versions', '> 1%', 'ie 8', 'ie 7']))
+//	.pipe(cssnano())
 	.pipe(rename({suffix: '.min'}))
 	.pipe(gulp.dest(path.build.css))
 	.pipe(browserSync.reload({stream: true}));
 });
+
+//
+gulp.task('scripts', function() {
+	return gulp.src(path.src.js)
+	.pipe(uglify())
+	.pipe(rename({suffix: '.min'}))
+	.pipe(gulp.dest(path.build.js))
+	.pipe(browserSync.reload({stream: true}));
+});
+
+//обработка изображений
+gulp.task('img', function() {
+	return gulp.src(path.src.img)
+	.pipe(cache((imagemin({
+		interlaced: true,
+		progressive: true,
+		svgoPlugins: [{removeViewBox: false}],
+		use: [pngquant()]
+	}))))
+	.pipe(gulp.dest(path.build.img))
+	.pipe(browserSync.reload({stream: true}));
+});
+
+//
+gulp.task('fonts', function() {
+    return gulp.src(path.src.fonts)
+    .pipe(gulp.dest(path.build.fonts))
+});
+
+//gulp del dist
+gulp.task('clean', function() {
+	return del.sync('dist');
+});
+
+//
+gulp.task('cache-cleaner', function() {
+	return cache.clearAll();
+});
+
+gulp.task('build', ['clean', 'html-rigger', 'sass', 'scripts', 'img', 'fonts']);
 
 //таск для автоматического обновления страницы при изменении файлов
 gulp.task('browser-sync', function() {
@@ -55,8 +102,9 @@ gulp.task('browser-sync', function() {
 });
 
 //таск мониторинга изменений 
-gulp.task('watch', ['html-rigger', 'browser-sync', 'sass'], function() {
+gulp.task('watch', ['build', 'browser-sync'], function() {
 	gulp.watch(path.src.sass, ['sass']);
 	gulp.watch(path.src.html, browserSync.reload);
 	gulp.watch(path.src.js, browserSync.reload);
+	gulp.watch(path.src.img, browserSync.reload);
 });
