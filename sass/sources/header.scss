@@ -1,0 +1,79 @@
+$white: #fff;
+$hoverColor: #7bc3d5;
+
+
+.header {
+    display: flex;
+    flex-direction: column;
+    background-color: $white;  
+}
+
+.logo {
+    margin-top: 15px;    
+}
+
+.header-top {
+    min-height: 160px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 25px;
+
+    .price {
+        align-self: center;
+        margin-top: 65px;
+        font-size: 23px;
+
+        a {
+            color: #f36240;
+        }
+    }
+
+    .contact { 
+        margin-top: 25px;
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        font-size: 16px;
+
+        &__day-work {
+            align-self: flex-end;
+        }
+
+        &__number-phone {
+            font-size: 31px;
+            margin-top: 5px;
+        }
+    }
+}
+
+.nav-list {
+    display: flex;
+    justify-content: space-around;
+
+    &__item  {
+        text-decoration: none;
+        min-height: 56px;
+        width: 100%;
+        text-align: center;
+        line-height: 56px;
+        border-right: 1px solid black;
+       
+        a {
+            display: block;
+            color: #000;
+            font-size: 24px;
+            text-decoration: none;
+            
+        }
+
+        &:hover {
+            background: $hoverColor;
+            color: $white;
+        }
+    } 
+    
+    &__item:nth-child(5) {
+        border-right: none;
+    }
+}
+

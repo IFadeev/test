@@ -1,0 +1,61 @@
+$white: #fff;
+$colotText: #484848;
+
+.manual-content {
+    display: flex;
+    color: $colotText;
+    flex-direction: column;
+    width: 100%;
+    background: $white;
+    min-height: 480px;
+    margin-top: 22px;
+    padding: 30px 25px 0;
+
+    &__title {
+        font-size: 26px;
+
+        &-second {
+            margin-top: 8px;
+        }
+    }
+}
+
+.manual-desc {
+
+    &__item {
+        display: flex;
+        align-items: center;
+        margin: 20px 0;
+        font-size: 14px;
+        font-size: 14px;
+        
+
+        &-design {
+            padding: 2px 70px;
+            background: url(../img/img-1.png) no-repeat;
+        }
+
+        &-tree {
+            background: url(../img/img-2.png) no-repeat;
+            padding: 0 70px;
+        }
+
+        .number {
+            border: 2px solid $colotText;
+            width: 33px;
+            height: 33px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 33px;
+        }
+
+        p {
+            width: 100%;
+            padding-left: 15px;
+        }
+    }
+}
+
+
+
+
